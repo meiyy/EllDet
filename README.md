@@ -40,7 +40,11 @@ elldet demo.bmp
 ```
 ## Dataset
 
-Dataset Tableware will be released here as a zip file.
+See folder "datasets".
+
+Groundtruth for ellipse detection are stored in IMAGE_NAME.gt.txt (for example: a.jpg.gt.txt for image a.jpg).
+The first line of the gt file is the number of ellipses. 
+Each of the rest lines represents an ellipse in the format: (center.x, center.y, a, b, rotation_angle).
 
 ## Contact
 
