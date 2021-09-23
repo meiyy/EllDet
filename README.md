@@ -3,7 +3,7 @@ An ellipse detector for RGB images implemented in C++.
 
 This is the code for paper ["Combining Convex Hull and Directed Graph for Fast and Accurate Ellipse Detection"](https://doi.org/10.1016/j.gmod.2021.101110).
 
-(The source code is currently being cleaned and checked, and will be released as soon as possible.)
+(The source code is currently under cleaning and checking, and the final version will be released as soon as possible.)
 
 ![Workflow of the ellipse detector.](img/workflowimage.png)
 
@@ -11,6 +11,7 @@ This is the code for paper ["Combining Convex Hull and Directed Graph for Fast a
 * CMake 3.18
 * C++ compiler with C++17 support.
 * OpenCV 4.3.0
+* Vcpkg is recommonded to simplify the building proceedure.
 
 ## Usage
 ### Setup
