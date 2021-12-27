@@ -56,15 +56,15 @@ class EllipseDetector
 {
 public:
 	EllipseDetector(
-		int min_length = 12,
-		double distance_to_ellipse_contour = 1.15,
-		double max_angle = 15,
-		double min_score = 0.6,
-		double pair_length_ratio = 6,
-		double pair_dis_ratio = 10,
-		double aspect_ratio = 20,
-		double split_angle = 50,
-		double ellipse_cluster_distance = 10
+		int min_length = 29,
+		double distance_to_ellipse_contour = 1.94,
+		double max_angle = 9.95,
+		double min_score = 0.71,
+		double pair_length_ratio = 9.24,
+		double pair_dis_ratio = 19.25,
+		double aspect_ratio = 26.54,
+		double split_angle = 60,
+		double ellipse_cluster_distance = 10.62
 	) :
 		min_length_(min_length),
 		min_score_(min_score),

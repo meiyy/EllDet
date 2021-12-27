@@ -40,7 +40,6 @@ double EllipseDetector::IsGoodArc(const std::vector<Point>& arc)
 
 void EllipseDetector::SplitCurvesToArcs()
 {
-	bool flag = false;
 	const VVP& curves = info_.curves;
 	VVP& arcs = info_.arcs;
 	auto& ags = info_.angles;
@@ -48,24 +47,9 @@ void EllipseDetector::SplitCurvesToArcs()
 	CurveSimplifier curve_simplifier;
 	for (auto& i : curves)
 	{
-		if (flag)
-		{
-			auto tmp = info_.original_img.clone();
-			drawVP(tmp, i, 2, 0, 1);
-			imshow("cur", tmp);
-			waitKey();
-		}
-		
-
 		vector<int> pos;
 		auto L = curve_simplifier.SimplifyRDP(i, pos);
-		if (flag)
-		{
-			auto tmp2 = info_.original_img.clone();
-			drawVP(tmp2, L, 2, 1, 1);
-			imshow("cur1", tmp2);
-			waitKey();
-		}
+
 		if (L.size() < 3)
 		{
 			continue;
@@ -86,14 +70,6 @@ void EllipseDetector::SplitCurvesToArcs()
 			{
 				info_.ellipses.push_back(ell);
 
-				if(flag){
-					auto tmp = info_.original_img.clone();
-					draw_ellipses_all({ ell }, tmp);
-					drawVP(tmp, i, 1, 0, 1);
-					imshow("single", tmp);
-					waitKey();
-				}
-
 				continue;
 			}
 		}
@@ -108,13 +84,7 @@ void EllipseDetector::SplitCurvesToArcs()
 				j++;
 				int k = pos[j];
 				sub_arc = std::vector<cv::Point>(i.begin() + start_k, i.begin() + k + 1);
-				if (flag)
-				{
-					auto tmp = info_.original_img.clone();
-					drawVP(tmp, sub_arc, 2, 0, 1);
-					imshow("cur2", tmp);
-					waitKey();
-				}
+
 				start = j;
 				start_k = k;
 				double ra = IsGoodArc(sub_arc);
@@ -133,13 +103,7 @@ void EllipseDetector::SplitCurvesToArcs()
 				}
 				int k = pos[j];
 				sub_arc = std::vector<cv::Point>(i.begin() + start_k, i.begin() + k + 1);
-				if (flag)
-				{
-					auto tmp = info_.original_img.clone();
-					drawVP(tmp, sub_arc, 2, 0, 1);
-					imshow("cur2", tmp);
-					waitKey();
-				}
+
 				start = j;
 				start_k = k;
 				double ra = IsGoodArc(sub_arc);
@@ -156,13 +120,7 @@ void EllipseDetector::SplitCurvesToArcs()
 		if (i.size() - start_k > min_length_)
 		{
 			sub_arc = std::vector<cv::Point>(i.begin() + start_k, i.end());
-			if (flag)
-			{
-				auto tmp = info_.original_img.clone();
-				drawVP(tmp, sub_arc, 2, 0, 1);
-				imshow("cur2", tmp);
-				waitKey();
-			}
+
 			double ra = IsGoodArc(sub_arc);
 			if (ra > -1)
 			{
@@ -257,7 +215,7 @@ bool EllipseDetector::DfsEnumerateArcs(int start, int u, std::vector<int>& vis, 
 	if (f)
 	{
 		nos.push_back(u);
-		if (nos.size() == 6)
+		if (nos.size() == 4)
 		{
 			nos.pop_back();
 			return false;
