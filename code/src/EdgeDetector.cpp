@@ -34,33 +34,33 @@ void Collecting(Mat1b& image,VVP& segments, int min_length)
 {
 	auto corner = image.clone();
 
-	for (int y = 0; y < image.rows; y++)
-	{
-		for (int x = 0; x < image.cols; x++)
-		{
-			if (!image(y, x))
-			{
-				continue;
-			}
-			int a = 0, b = 0;
-			for (int i = 0; i < 4; i++)
-			{
-				int tx = x + dx[i], ty = y + dy[i];
-				if (tx>=0&&ty>=0&&tx< image.cols&&ty< image.rows&&image(ty,tx))
-					a++;
-			}
-			for (int i = 4; i < 8; i++)
-			{
-				int tx = x + dx[i], ty = y + dy[i];
-				if (tx >= 0 && ty >= 0 && tx < image.cols && ty < image.rows && image(ty,tx))
-					b++;
-			}
-			if (a > 2 || b > 2)
-				corner(y, x) = 0;
-			else
-				corner(y, x) = 0;
-		}
-	}
+	// for (int y = 0; y < image.rows; y++)
+	// {
+	// 	for (int x = 0; x < image.cols; x++)
+	// 	{
+	// 		if (!image(y, x))
+	// 		{
+	// 			continue;
+	// 		}
+	// 		int a = 0, b = 0;
+	// 		for (int i = 0; i < 4; i++)
+	// 		{
+	// 			int tx = x + dx[i], ty = y + dy[i];
+	// 			if (tx>=0&&ty>=0&&tx< image.cols&&ty< image.rows&&image(ty,tx))
+	// 				a++;
+	// 		}
+	// 		for (int i = 4; i < 8; i++)
+	// 		{
+	// 			int tx = x + dx[i], ty = y + dy[i];
+	// 			if (tx >= 0 && ty >= 0 && tx < image.cols && ty < image.rows && image(ty,tx))
+	// 				b++;
+	// 		}
+	// 		if (a > 2 || b > 2)
+	// 			corner(y, x) = 0;
+	// 		else
+	// 			corner(y, x) = 0;
+	// 	}
+	// }
 
 	auto vis=image.clone();
 	for(int y=0;y < vis.rows;y++)
