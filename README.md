@@ -19,7 +19,7 @@ This is the code for paper ["Combining Convex Hull and Directed Graph for Fast a
 
 ```cmd
 git clone https://github.com/meiyy/EllDet.git
-cd EllDet
+cd EllDet/code
 ```
 * Usage CMake to generate the project:
 
@@ -31,13 +31,6 @@ cmake ..
 
 * Build the project by `make` (Linux) or `Visual Studio` (Windows).
 
-### Test
-
-Run the following command to detect the ellipses in an given image file:
-
-```cmd
-elldet demo.bmp
-```
 ## Dataset
 
 See folder "datasets".
@@ -46,7 +39,11 @@ Groundtruth for ellipse detection are stored in IMAGE_NAME.gt.txt (for example: 
 The first line of the gt file is the number of ellipses. 
 Each of the rest lines represents an ellipse in the format: (center.x, center.y, a, b, rotation_angle).
 
+## Labeling Tool
+We also provide a tool to label ellipses in an image.
+The tool is implemented in C#, and we provide the executable file along with the source code in folder "tools".
+
 ## Contact
 
 If you have any question about the code, please feel free to contact me.
-Email: shenzeyu2018@ia.ac.cn
+Email: shenzeyu1234@gmail.com
