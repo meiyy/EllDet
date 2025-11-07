@@ -5,7 +5,7 @@ using namespace cv;
 constexpr static int dx[]{ 1,-1, 0, 0, 1, 1,-1,-1 };
 constexpr static int dy[]{ 0, 0, 1,-1, 1,-1, 1,-1 };
 
-void CollectingDfs(VP &seg, Mat1b& vis, Mat1b& corner, int x, int y)
+void CollectingDfs(VP &seg, Mat1b& vis, int x, int y)
 {
 	vis(y,x)=0;
 	seg.push_back(Point(x,y));
@@ -14,16 +14,9 @@ void CollectingDfs(VP &seg, Mat1b& vis, Mat1b& corner, int x, int y)
 		int tx=x+dx[i],ty=y+dy[i];
 		if(tx>=0 && tx < vis.cols && ty >=0 && ty < vis.rows)
 		{
-			double angle_change = 0;// acos(abs(grad(ty, tx).dot(grad(y, x)))) * 180.0 / CV_PI;
-			if(vis(ty,tx) && angle_change<15)
+			if(vis(ty,tx))
 			{
-				if (corner(ty, tx))
-				{
-					seg.push_back(Point(tx, ty));
-					return;
-				}
-				else
-					CollectingDfs(seg,vis,corner,tx,ty);
+				CollectingDfs(seg,vis,tx,ty);
 				return;
 			}
 		}
@@ -32,36 +25,6 @@ void CollectingDfs(VP &seg, Mat1b& vis, Mat1b& corner, int x, int y)
 
 void Collecting(Mat1b& image,VVP& segments, int min_length)
 {
-	auto corner = image.clone();
-
-	// for (int y = 0; y < image.rows; y++)
-	// {
-	// 	for (int x = 0; x < image.cols; x++)
-	// 	{
-	// 		if (!image(y, x))
-	// 		{
-	// 			continue;
-	// 		}
-	// 		int a = 0, b = 0;
-	// 		for (int i = 0; i < 4; i++)
-	// 		{
-	// 			int tx = x + dx[i], ty = y + dy[i];
-	// 			if (tx>=0&&ty>=0&&tx< image.cols&&ty< image.rows&&image(ty,tx))
-	// 				a++;
-	// 		}
-	// 		for (int i = 4; i < 8; i++)
-	// 		{
-	// 			int tx = x + dx[i], ty = y + dy[i];
-	// 			if (tx >= 0 && ty >= 0 && tx < image.cols && ty < image.rows && image(ty,tx))
-	// 				b++;
-	// 		}
-	// 		if (a > 2 || b > 2)
-	// 			corner(y, x) = 0;
-	// 		else
-	// 			corner(y, x) = 0;
-	// 	}
-	// }
-
 	auto vis=image.clone();
 	for(int y=0;y < vis.rows;y++)
 	{
@@ -70,19 +33,9 @@ void Collecting(Mat1b& image,VVP& segments, int min_length)
 			if(vis(y,x))
 			{
 				VP seg;
-				CollectingDfs(seg,vis,corner,x,y);
+				CollectingDfs(seg,vis,x,y);
 				if(seg.size()>min_length)
 				{
-					if (seg.size() > 0 && corner(seg.front()))
-					{
-						vis(seg.front()) = 1;
-						seg = VP(seg.begin() + 1, seg.end());
-					}
-					if (seg.size() > 0 && corner(seg.back()))
-					{
-						vis(seg.back()) = 1;
-						seg.pop_back();
-					}
 					segments.push_back(seg);
 				}
 				else
